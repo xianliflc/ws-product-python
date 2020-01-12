@@ -24,7 +24,7 @@ class StatsHourlyResource(Resource):
             )
 
         data = queryHelper('''
-            SELECT date, hour, impressions, clicks, revenue
+            SELECT to_char(date, 'MM-DD') AS date, hour, impressions, clicks, revenue
             FROM public.hourly_stats
             WHERE date <= '{end_date}' AND date >= '{start_date}'
             ORDER BY date, hour

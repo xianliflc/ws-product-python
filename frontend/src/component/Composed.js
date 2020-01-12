@@ -86,7 +86,8 @@ export default class Example extends PureComponent {
                 }}
             >
                 <CartesianGrid stroke="#f5f5f5" />
-                <XAxis dataKey="hour" label={{ value: 'hour', position: 'insideBottomRight', offset: 0 }} />
+                <XAxis dataKey={this.filter_type === 'daily'? 'date' : 'hour'}
+                label={{ value: this.filter_type === 'daily'? 'Day' : 'Hour', position: 'insideBottomRight', offset: 0 }} />
                 <YAxis label={{ value: 'impressions (x100)', angle: -90, position: 'insideTopLeft' }} />
                 <Tooltip />
                 <Legend />

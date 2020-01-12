@@ -23,7 +23,7 @@ class EventsDailyResource(Resource):
                 page_size=str(data['page_size'])
             )
         data = queryHelper('''
-            SELECT date, SUM(events) AS events
+            SELECT to_char(date, 'YYYY-MM-DD') AS date, SUM(events) AS events
             FROM public.hourly_events
             WHERE date <= '{end_date}' AND date >= '{start_date}'
             GROUP BY date

@@ -25,7 +25,7 @@ class EventsHourlyResource(Resource):
             )
 
         data = queryHelper('''
-            SELECT date, hour, events
+            SELECT to_char(date, 'YYYY-MM-DD') AS date, hour, events
             FROM public.hourly_events
             WHERE date <= '{end_date}' AND date >= '{start_date}'
             ORDER BY date, hour
