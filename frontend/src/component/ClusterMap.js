@@ -88,10 +88,11 @@ export default class ClusterMap extends React.PureComponent {
     filterServer(e) {
         e.preventDefault()
         this.getData(
-            parseInt(this.min_revenue_ref.current.value) !== NaN ? parseInt(this.min_revenue_ref.current.value) : this.default_min_revenue,
-            parseInt(this.max_revenue_ref.current.value) !== NaN ? parseInt(this.max_revenue_ref.current.value) : this.default_max_revenue,
-            parseInt(this.min_events_ref.current.value) !== NaN ? parseInt(this.min_events_ref.current.value) : this.default_min_events,
-            parseInt(this.max_events_ref.current.value) !== NaN ? parseInt(this.max_events_ref.current.value) : this.default_max_events
+ 
+            isNaN(parseInt(this.min_revenue_ref.current.value)) ? this.default_min_revenue : parseInt(this.min_revenue_ref.current.value),
+            isNaN(parseInt(this.max_revenue_ref.current.value))? this.default_max_revenue : parseInt(this.max_revenue_ref.current.value),
+            isNaN(parseInt(this.min_events_ref.current.value)) ? this.default_min_events : parseInt(this.min_events_ref.current.value),
+            isNaN(parseInt(this.max_events_ref.current.value)) ? this.default_max_events: parseInt(this.max_events_ref.current.value)
         )
     }
 

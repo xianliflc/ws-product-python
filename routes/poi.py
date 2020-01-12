@@ -13,7 +13,7 @@ class PoiResource(Resource):
     def get(self, data=None, errors=None):
         if errors:
             return response.error(errors, status.HTTP_BAD_REQUEST.get('code'))
-        include = [] if not('include' in data) else data['include'].strip().split(',')
+        include = data['include'].strip().split(',') if 'include' in data else []
         revenue = ''
         events = ''
         having = 'HAVING 1 > 0'
