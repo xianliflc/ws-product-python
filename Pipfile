@@ -12,7 +12,12 @@ sqlalchemy = "*"
 "psycopg2-binary" = "*"
 simplejson = "*"
 gunicorn = "*"
-
+"flask-cors" = "*"
+six = "*"
+"flask-restful" = "*"
+pytz = "*"
+aniso8601 = "*"
+marshmallow = "*"
 
 [dev-packages]
 
