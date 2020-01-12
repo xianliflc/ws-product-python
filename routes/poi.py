@@ -6,14 +6,14 @@ import libs.http_status as status
 import libs.json_response as response
 from libs.validator import Validator
 
+
 class PoiResource(Resource):
-    
     @rate_limiter(100)
     @Validator("poi_validator.PoiEventsSchema")
     def get(self, data=None, errors=None):
         if errors:
             return response.error(errors, status.HTTP_BAD_REQUEST.get('code'))
-        include = [] if data['include'] is None else data['include'].strip().split(',')
+        include = [] if not('include' in data) else data['include'].strip().split(',')
         revenue = ''
         events = ''
         having = 'HAVING 1 > 0'
@@ -30,9 +30,10 @@ class PoiResource(Resource):
 
         if 'revenue' in include:
             revenue = ', CAST(SUM(HS.REVENUE) AS INTEGER) AS REVENUE'
-            having = having + (" AND SUM(HS.REVENUE) <= {max_revenue}". \
+            having = having + (" AND SUM(HS.REVENUE) <= {max_revenue}".\
                 format(max_revenue=str(max_revenue)) if not (max_revenue is None) else "")
-            having = having + (" AND SUM(HS.REVENUE) >= {min_revenue}". \
+
+            having = having + (" AND SUM(HS.REVENUE) >= {min_revenue}".\
                 format(min_revenue=str(min_revenue)) if not (min_revenue is None) else "")
 
         if 'events' in include:

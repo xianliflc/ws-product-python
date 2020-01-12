@@ -6,8 +6,8 @@ import libs.http_status as status
 import libs.json_response as response
 from libs.validator import Validator
 
+
 class StatsDailyResource(Resource):
-    
     @rate_limiter(100)
     @Validator("stats_validator.StatsSchema")
     def get(self, data=None, errors=None):
@@ -17,11 +17,11 @@ class StatsDailyResource(Resource):
         end_date = data['end_date']
         limit = ' LIMIT 7'
         if 'page_number' in data and 'page_size' in data:
-            offset = (data['page_number'] - 1) * data['page_size'];
+            offset = (data['page_number'] - 1) * data['page_size']
             limit = " LIMIT {page_size} OFFSET {offset}".format(
                 offset=str(offset),
                 page_size=str(data['page_size'])
-            );
+            )
 
         data = queryHelper('''
             SELECT

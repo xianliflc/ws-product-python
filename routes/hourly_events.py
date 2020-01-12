@@ -8,7 +8,6 @@ from libs.validator import Validator
 
 
 class EventsHourlyResource(Resource):
-    
     @rate_limiter(100)
     @Validator("stats_validator.StatsSchema")
     def get(self, data=None, errors=None):
@@ -19,11 +18,11 @@ class EventsHourlyResource(Resource):
         end_date = data['end_date']
         limit = ' LIMIT 168'
         if 'page_number' in data and 'page_size' in data:
-            offset = (data['page_number'] - 1) * data['page_size'];
+            offset = (data['page_number'] - 1) * data['page_size']
             limit = " LIMIT {page_size} OFFSET {offset}".format(
                 offset=str(offset),
                 page_size=str(data['page_size'])
-            );
+            )
 
         data = queryHelper('''
             SELECT date, hour, events
