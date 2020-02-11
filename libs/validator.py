@@ -35,3 +35,19 @@ class Validator(object):
                 print(err.messages)
             return f(*args,  **kwargs)
         return wrapped_f
+
+
+def require_json(f):
+    @functools.wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not request.is_json:
+            abort(status.HTTP_BAD_REQUEST.get('code'))
+
+        data = request.get_json()
+        if not data:
+            abort(status.HTTP_BAD_REQUEST.get('code'))
+        kwargs['data'] = data
+        print(data)
+        return f(*args, **kwargs)
+
+    return decorated_function

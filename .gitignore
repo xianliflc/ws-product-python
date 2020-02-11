@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+# build/
 develop-eggs/
 dist/
 downloads/
@@ -84,6 +84,8 @@ celerybeat-schedule
 env/
 venv/
 ENV/
+frontend/*
+/frontend/*
 
 # Spyder project settings
 .spyderproject
@@ -97,3 +99,48 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+frontend/.gitignore
+frontend/package-lock.json
+frontend/package.json
+frontend/README.md
+frontend/build/asset-manifest.json
+frontend/build/favicon.ico
+frontend/build/index.html
+frontend/build/logo192.png
+frontend/build/logo512.png
+frontend/build/manifest.json
+frontend/build/precache-manifest.77e87aa9c54e3308cb98b4ef2c9de619.js
+frontend/build/robots.txt
+frontend/build/service-worker.js
+frontend/build/static/css/main.5ecd60fb.chunk.css
+frontend/build/static/css/main.5ecd60fb.chunk.css.map
+frontend/build/static/js/2.fe0892be.chunk.js
+frontend/build/static/js/2.fe0892be.chunk.js.LICENSE
+frontend/build/static/js/2.fe0892be.chunk.js.map
+frontend/build/static/js/main.c281fc03.chunk.js
+frontend/build/static/js/main.c281fc03.chunk.js.map
+frontend/build/static/js/runtime-main.8c5f780f.js
+frontend/build/static/js/runtime-main.8c5f780f.js.map
+frontend/public/favicon.ico
+frontend/public/index.html
+frontend/public/logo192.png
+frontend/public/logo512.png
+frontend/public/manifest.json
+frontend/public/robots.txt
+frontend/src/Api.js
+frontend/src/App.css
+frontend/src/App.js
+frontend/src/App.test.js
+frontend/src/index.css
+frontend/src/index.js
+frontend/src/logo.svg
+frontend/src/serviceWorker.js
+frontend/src/setupTests.js
+frontend/src/component/ClusterMap.js
+frontend/src/component/ComparedMetrics.js
+frontend/src/component/Composed.js
+frontend/src/component/DataTable.js
+frontend/src/component/index.js
+frontend/src/component/TableRenderer.js
+frontend/src/utils/DateUtils.js

@@ -18,6 +18,7 @@ six = "*"
 pytz = "*"
 aniso8601 = "*"
 marshmallow = "*"
+flask_sqlalchemy = "*"
 
 [dev-packages]
 

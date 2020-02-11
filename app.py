@@ -9,8 +9,3 @@ from routes.routes import init_routes
 app = Flask(__name__)
 api = init_routes(app)
 CORS(app)
-
-@app.route('/')
-@rate_limiter(100)
-def index():
-    return 'Welcome to EQ Works 😎'
