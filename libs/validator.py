@@ -23,13 +23,12 @@ class Validator(object):
 
             try:
                 validator_instance = target_class()
-                data = request.args
-                errors = validator_instance.validate(data, partial=self.partial)
+                errors = validator_instance.validate(kwargs['data'], partial=self.partial)
                 if errors:
                     kwargs['errors'] = errors
                 else:
-                    result = validator_instance.load(data, partial=self.partial)
-                    kwargs['data'] = result
+                    kwargs['data'] = validator_instance.load(kwargs['data'], partial=self.partial)
+                    # kwargs['data'] = result
 
             except ValidationError as err:
                 print(err.messages)
@@ -47,7 +46,7 @@ def require_json(f):
         if not data:
             abort(status.HTTP_BAD_REQUEST.get('code'))
         kwargs['data'] = data
-        print(data)
+
         return f(*args, **kwargs)
 
     return decorated_function

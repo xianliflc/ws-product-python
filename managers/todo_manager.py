@@ -1,8 +1,35 @@
-from libs.query_helper import queryHelper, engine
+from libs.query_helper import queryHelper, engine, update, delete
 from psycopg2 import DatabaseError
 from pprint import pprint
 
+
 class TodoManager:
+    def getTodoStatusList(self):
+        data = queryHelper('''
+            SELECT
+                ts.id,
+                ts.display_name,
+                ts.name
+            FROM todo_status AS ts 
+            ORDER BY ts.id ASC
+            ''')
+
+        return data
+
+    def getTodoStatusById(self, status_id):
+        data = queryHelper('''
+            SELECT
+                ts.id,
+                ts.display_name,
+                ts.name
+            FROM todo_status AS ts
+            WHERE ts.id = {status_id} 
+            ORDER BY ts.id ASC
+            '''.format(status_id=status_id)
+        )
+
+        return data
+
     def getTodos(self):
         data = queryHelper('''
             SELECT
@@ -37,18 +64,22 @@ class TodoManager:
             WHERE
                 t.id = {todo_id}
             '''.format(
-                todo_id=todo_id
-            )
+                todo_id=todo_id)
             )
 
         return data
 
+    def deleteTodoById(self, todo_id):
+        return delete('todo', {'id': todo_id})
+
     def createTodo(self, data):
-        
+        status = self.getTodoStatusById(data['status_id'])
+        if not status:
+            raise ValueError('Bad status id')
         with engine.connect() as conn:
             trans = conn.begin()
             try:
-                a = conn.execute(
+                result = conn.execute(
                     '''
                         insert into todo (title , description , status_id, due) values (?, ?, ?, ?)
                     ''',
@@ -57,9 +88,17 @@ class TodoManager:
                     data['status_id'],
                     data['due']
                 )
-                b = trans.commit()
-                return a, b
+                trans.commit()
             except DatabaseError as error:
-                pprint(error)
+                result = False
                 trans.rollback()
-                return None
+            finally:
+                conn.close()
+                return {'id': result.lastrowid} if result else False
+
+    def updateTodoById(self, todo_id, data):
+        if 'status_id' in data:
+            status = self.getTodoStatusById(data['status_id'])
+            if not status:
+                raise ValueError('Bad status id')
+        return update('todo', data, {'id': todo_id})
